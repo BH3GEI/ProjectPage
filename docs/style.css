@@ -272,6 +272,7 @@ h1 {
     -webkit-text-fill-color: transparent;
     opacity: 1;
     animation: none;
+    text-align: left;
 }
 
 .social-links {

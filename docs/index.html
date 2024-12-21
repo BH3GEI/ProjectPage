@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yao's Projects</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <div class="background">
+            <canvas id="bgCanvas"></canvas>
+            <div class="gradient-sphere"></div>
+            <div class="gradient-sphere second"></div>
+        </div>
+        <div class="container">
+            <div v-if="homepage" class="homepage-card" @mouseenter="hover = homepage.url" @mouseleave="hover = null">
+                <div class="homepage-content">
+                    <div class="homepage-avatar">
+                        <img :src="homepage.icon.url" alt="avatar">
+                    </div>
+                    <div class="homepage-info">
+                        <h1>Yao's Projects</h1>
+                        <div class="social-links">
+                            <a href="https://github.com/bh3gei" target="_blank" class="social-link" title="GitHub">
+                                <span class="mdi mdi-github"></span>
+                            </a>
+                            <a href="https://bh3gei.github.io/liyao/" target="_blank" class="social-link" title="Academic Profile">
+                                <span class="mdi mdi-school"></span>
+                            </a>
+                            <a href="https://x.com/BH3GEI_CN" target="_blank" class="social-link" title="Twitter">
+                                <span class="mdi mdi-twitter"></span>
+                            </a>
+                            <a href="https://t.me/yao_luv_cs" target="_blank" class="social-link" title="Telegram">
+                                <span class="mdi mdi-send"></span>
+                            </a>
+                            <a href="https://linkedin.com/in/yao-li2026" target="_blank" class="social-link" title="LinkedIn">
+                                <span class="mdi mdi-linkedin"></span>
+                            </a>
+                            <a href="mailto:scholar.liyao@gmail.com" class="social-link" title="Email">
+                                <span class="mdi mdi-email"></span>
+                            </a>
+                            <a :href="homepage.url" target="_blank" class="social-link" title="Homepage">
+                                <span class="mdi mdi-home"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-background"></div>
+            </div>
+
+            <div class="controls">
+                <button @click="sortByName" :class="{ active: sortMethod === 'name' }">
+                    <span class="mdi mdi-sort-alphabetical-variant"></span> Sort by Name
+                </button>
+                <button @click="sortByCategory" :class="{ active: sortMethod === 'category' }">
+                    <span class="mdi mdi-sort-variant"></span> Sort by Category
+                </button>
+            </div>
+
+            <transition-group name="list" tag="div" class="links-container">
+                <div v-for="link in sortedLinks" 
+                     :key="link.url" 
+                     class="link-card"
+                     :class="{ 'has-icon': link.icon }"
+                     @mouseenter="hover = link.url"
+                     @mouseleave="hover = null">
+                    <div class="card-content">
+                        <div class="icon-container">
+                            <img v-if="link.icon.type === 'image'" :src="link.icon.url" alt="icon" class="custom-icon">
+                            <span v-else :class="['mdi', link.icon.name]"></span>
+                        </div>
+                        <div class="text-content">
+                            <a :href="link.url" target="_blank">
+                                <h3>{{ link.title }}</h3>
+                                <p v-if="link.description">{{ link.description }}</p>
+                                <span v-if="link.category" class="category-tag">{{ link.category }}</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-background"></div>
+                </div>
+            </transition-group>
+        </div>
+    </div>
+    <script src="app.js"></script>
+    <script src="background.js"></script>
+</body>
+</html>

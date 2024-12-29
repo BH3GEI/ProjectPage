@@ -5,7 +5,7 @@ const app = createApp({
         return {
             links: [],
             homepage: null,
-            rawUrl: 'https://raw.githubusercontent.com/BH3GEI/links/main/links.md',
+            rawUrl: 'https://raw.githubusercontent.com/BH3GEI/Resume/main/project_links.md',
             hover: null,
             sortMethod: 'name', // 'name' or 'category'
         }
